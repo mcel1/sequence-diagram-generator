@@ -13,7 +13,7 @@ var argv = require('yargs')
     .alias('t', 'theme')
     .describe('t', 'Diagram theme.')
     .choices('t', ['snapHand', 'snapSimple'])
-    .default('t', 'snapHand')
+    .default('t', 'snapSimple')
     .argv;
 
 var fs = require('fs');
@@ -50,6 +50,8 @@ fs.writeFile(tempFile, sequenceDiagramOutput, function(err) {
         .goto("file://" + path.resolve(".tmp.html"))
         .wait(1000)
         .screenshot(argv.o)
+        .html(argv.o + ".html")
+        .pdf(argv.o + ".pdf")
         .end()
         .then(()=>console.log(argv.o + " saved."))
         .catch(function (error) {
